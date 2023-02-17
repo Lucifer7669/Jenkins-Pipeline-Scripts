@@ -2,7 +2,7 @@ pipeline{
     agent {
         label {
             label "built-in" 
-            customWorkspace "/srv/pipeline-jobs/" 
+            customWorkspace "/mnt/pipeline-jobs/" 
         }
     }
         stages {
@@ -15,7 +15,7 @@ pipeline{
             }
             stage ('builing-phase'){
                 steps {
-                     sh "cd game-of-life && mvn clean install" 
+                     sh "cd game-of-life && mvn install" 
                 }
             }
             stage ('deploy-war'){
