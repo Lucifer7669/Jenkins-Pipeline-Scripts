@@ -1,0 +1,28 @@
+pipeline {
+    agent {
+        node {
+            label "built-in"
+            customWorkspace "/mnt/Jenkinsfile-pipelins"
+        }
+    }
+
+    stages {
+        stage ('stage-1'){
+            steps {
+                sh "echo "Hello world""
+            }
+        }
+
+        stage ('stage-2-slave-1'){
+            agent {
+                node {
+                    label "slave-1"
+                    customWorkspace "/mnt/Jenkinsfile-pipelines"
+                }
+            }
+            steps {
+                sh "echo "Hello slave-1""
+            }
+        }
+    }
+}
