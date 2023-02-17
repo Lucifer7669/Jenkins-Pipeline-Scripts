@@ -2,7 +2,7 @@ pipeline{
     agent {
         label {
             label "built-in" 
-            customWorkspace "/srv/pipeline-jobs/" 
+            customWorkspace "/mnt/pipeline-jobs/" 
         }
     }
         stages {
@@ -15,15 +15,13 @@ pipeline{
             }
             stage ('builing-phase'){
                 steps {
-                     sh "cd game-of-life && mvn clean install" 
+                     sh "cd game-of-life && mvn install" 
                 }
             }
             stage ('deploy-war'){
                 steps{
                     sh "chmod 400 Jenkins-Installation-script/my-linux.pem"
                     sh "scp -i Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.6.96:/mnt/tomcat-server/apache-tomcat-9.0.71/webapps"
-                     sh "scp -i Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.6.96:/mnt/tomcat-server/apache-tomcat-9.0.71/webapps"
-                      sh "scp -i Jenkins-Installation-script/my-linux.pem game-of-life/gameoflife-web/target/gameoflife.war ec2-user@172.31.6.96:/mnt/tomcat-server/apache-tomcat-9.0.71/webapps"
                 }
             }
            
